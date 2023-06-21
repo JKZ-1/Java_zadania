@@ -1,11 +1,14 @@
 package zadania.computer;
+//Abstrakcja: utwórz 2 przeciążone metody abstrakcyjne volumeUp i volumeDown w klasie Computer
+//podgłaśniać możemy od 0 do 100, ściszać do 0
 
-public class Computer {
+abstract public class Computer {
     protected String name;
     protected String type;
     protected int hdd;
     protected int ram;
     protected boolean state;
+    protected int volumeLevel;
 
     public Computer(String name, String type, int hdd, int ram) {
         this.name = name;
@@ -13,6 +16,7 @@ public class Computer {
         this.hdd = hdd;
         this.ram = ram;
         this.state = false;
+        volumeLevel = 0;
     }
 
     public String getName() {
@@ -53,6 +57,7 @@ public class Computer {
     }
 
     public void switchOff() {
+        System.out.println("Wyłączam komputer: " + name);
         state = false;
     }
 
@@ -60,4 +65,11 @@ public class Computer {
         return state;
     }
 
+    public abstract int volumeUp();
+
+    public abstract int volumeUp(int volumeLevel);
+
+    public abstract int volumeDown();
+
+    public abstract int volumeDown(int volumeLevel);
 }

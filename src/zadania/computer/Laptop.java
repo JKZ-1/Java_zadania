@@ -1,18 +1,16 @@
 package zadania.computer;
 
-//Dodać pole sprawdzające, czy komputer jest podłączony do prądu.
-//Następnie w metodzie switchOn dodać walidację, jeśli jest, to włączamy, jeśli nie to komunikat.
-public class PC extends Computer {
+public class Laptop extends Computer {
 
-    private boolean isPowerSupply;
+    private int batteryLevel;
 
-    public PC(String name, String type, int hdd, int ram) {
+    public Laptop(String name, String type, int hdd, int ram, int batteryLevel) {
         super(name, type, hdd, ram);
-        isPowerSupply = false;
+        this.batteryLevel = batteryLevel;
     }
 
     public int volumeUp() {
-        return volumeLevel += 1;
+        return volumeLevel += 5;
     }
 
     @Override
@@ -26,10 +24,9 @@ public class PC extends Computer {
         }
     }
 
-
     @Override
     public int volumeDown() {
-        volumeLevel -= 1;
+        volumeLevel -= 2;
         if (volumeLevel <= 0) {
             return 0;
         } else {
@@ -48,26 +45,23 @@ public class PC extends Computer {
         }
     }
 
-    public void showComputerName() {
-        System.out.println(name);
-    }
-
     @Override
     public void switchOn() {
-        System.out.println("Checking power supply");
-        if (isPowerSupply) {
+        System.out.println("Checking battery level");
+        if (batteryLevel > 0) {
             super.switchOn();
         } else {
-            System.out.println("The power supply is off");
+            System.out.println("Battery level too low!");
         }
     }
 
     public void switchOff() {
-        System.out.println("Wyłączam PC: " + name);
+        System.out.println("Wyłączam laptop: " + name);
         state = false;
     }
 
-    public void setPowerSupply(boolean powerSupply) {
-        isPowerSupply = powerSupply;
+    public void setBatteryLevel(int newBatteryLevel) {
+        batteryLevel = newBatteryLevel;
     }
 }
+
