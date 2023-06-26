@@ -1,16 +1,19 @@
-package zadania;
+package zadania.Interface;
 
-public class Bug {
+//Interface: 1. Dodaj klasę BugReporter + 3 pola + 3 dodatkowe metody + walidacja maila przeniesiona z Bug
+//2. Dodaj interface ConsoleNotification z metodą notifyStatusChange
+//3. W klasie Bug dodaj metodę toString
+public class Bug implements ConsoleNotification {
     private String description;
-    private String email;
     private int priority;
     private boolean status;
+    private BugReporter bugReporter;
 
-    public Bug(String description, String email, int priority) {
+    public Bug(String description, BugReporter bugReporter, int priority) {
         this.description = description;
-        this.email = email;
+        this.bugReporter = bugReporter;
         this.priority = priority;
-        this.status = true;
+        this.status = false;
     }
 
     public String getDescription() {
@@ -22,18 +25,6 @@ public class Bug {
             System.out.println("The description must be longer than 10 characters");
         } else {
             this.description = description;
-        }
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        if (email.contains("@")) {
-            this.email = email;
-        } else {
-            System.out.println("The email must include @");
         }
     }
 
@@ -50,11 +41,12 @@ public class Bug {
     }
 
     public void setStatus(boolean status) {
+        notifyStatusChange();
         this.status = status;
     }
 
     public void getAllInfo() {
-        System.out.println(description + " " + email + " " + priority + " " + status);
+        System.out.println(description + " " + priority + " " + status);
     }
 
     public void getReportingPerson(String name) {
@@ -67,5 +59,28 @@ public class Bug {
 
     public int getPriority() {
         return priority;
+    }
+
+    public BugReporter getBugReporter() {
+        return bugReporter;
+    }
+
+    public void setBugReporter(BugReporter bugReporter) {
+        this.bugReporter = bugReporter;
+    }
+
+    @Override
+    public String toString() {
+        return "Bug{" +
+                "description='" + description + '\'' +
+                ", priority=" + priority +
+                ", status=" + status +
+                ", bugReporter=" + bugReporter +
+                '}';
+    }
+
+    @Override
+    public void notifyStatusChange() {
+        System.out.println("The status has changed");
     }
 }
