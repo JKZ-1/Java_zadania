@@ -1,9 +1,11 @@
 package zadania.Interface;
 
+import java.util.Objects;
+
 //Interface: 1. Dodaj klasę BugReporter + 3 pola + 3 dodatkowe metody + walidacja maila przeniesiona z Bug
 //2. Dodaj interface ConsoleNotification z metodą notifyStatusChange
 //3. W klasie Bug dodaj metodę toString
-public class Bug implements ConsoleNotification {
+public class Bug implements ConsoleNotification, Comparable<Bug> {
     private String description;
     private int priority;
     private boolean status;
@@ -80,7 +82,26 @@ public class Bug implements ConsoleNotification {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bug bug = (Bug) o;
+        return priority == bug.priority && status == bug.status && Objects.equals(description, bug.description) && Objects.equals(bugReporter, bug.bugReporter);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, priority, status, bugReporter);
+    }
+
+    @Override
     public void notifyStatusChange() {
         System.out.println("The status has changed");
+    }
+
+    @Override
+    public int compareTo(Bug bug) {
+        int compareResult = this.getDescription().compareTo(bug.getDescription());
+        return compareResult;
     }
 }
